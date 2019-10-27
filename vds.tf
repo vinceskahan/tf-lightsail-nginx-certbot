@@ -17,7 +17,11 @@ provider "aws" {
 # in the Lightsail console.  aws_key_pair cannot be used at this time
 # according to the TF documentation
 
-resource "aws_lightsail_instance" "vdstest" {
+# note the userdata script below, which is assumed to be in
+# the current working directory.   To verify it worked, look
+# for the cloud-init logs in /var/log in the VM once it boots.
+
+resource "aws_lightsail_instance" "my_instance" {
   name              = "tfbuntu"
   availability_zone = "us-west-2a"
   blueprint_id      = "ubuntu_18_04"
@@ -30,28 +34,27 @@ resource "aws_lightsail_instance" "vdstest" {
 # allocate a public ip address
 #---------------------------------------------------------------------
 
-resource "aws_lightsail_static_ip" "vdstest" {
-  name = "vdstest_ip"
+resource "aws_lightsail_static_ip" "my_public_ip" {
+  name = "${aws_lightsail_instance.my_instance.name}_ip"
 }
 
 #---------------------------------------------------------------------
-# attach the public ip to the lightsail instance
+# attach public ip to lightsail instance using their resource names
 #---------------------------------------------------------------------
 
-resource "aws_lightsail_static_ip_attachment" "vdstest" {
-  static_ip_name = "${aws_lightsail_static_ip.vdstest.name}"
-  instance_name  = "${aws_lightsail_instance.vdstest.name}"
+resource "aws_lightsail_static_ip_attachment" "my_ip_attachment" {
+  static_ip_name = "${aws_lightsail_static_ip.my_public_ip.name}"
+  instance_name  = "${aws_lightsail_instance.my_instance.name}"
 }
-
-############################
-# exported attributes
-############################
-# ip_address = the allocated ip address
 
 #---------------------------------------------------------------------
 # report which public ip was generated
 #---------------------------------------------------------------------
 
 output "public_ip_address" {
-  value = "${aws_lightsail_static_ip.vdstest.ip_address}"
+  value = "${aws_lightsail_static_ip_attachment.my_ip_attachment.ip_address}"
 }
+
+#---------------------------------------------------------------------
+# that's all folks
+#---------------------------------------------------------------------
