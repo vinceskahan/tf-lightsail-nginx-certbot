@@ -30,6 +30,9 @@ apt-get install certbot python-certbot-nginx -y
 #     (verify certbot renew is in /etc/crontab or /etc/cron.*/*)
 #     systemctl list-timers
 #
+# verify 443 is enabled in the lightsail console
+# (the default is to 'not' have it enabled)
+#
 # and verify ssh is working
 #     open https://fqdn
 #     or use https://www.ssllabs/ssltest
