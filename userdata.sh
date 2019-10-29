@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "userdata run at `date`" >> /root/000-TERRAFORM-DATE
+echo "userdata start at `date`" >> /root/000-TERRAFORM-DATE
 
 # two steps, some packages are held back in the first pass
 export DEBIAN_FRONTEND=noninteractive
@@ -44,3 +44,5 @@ apt-get install certbot python-certbot-nginx -y
 # for Lightsail, make sure 443 is open in the Amazon console.  The default is 'not' open.
 #
 ########################
+
+echo "userdata end   at `date`" >> /root/000-TERRAFORM-DATE

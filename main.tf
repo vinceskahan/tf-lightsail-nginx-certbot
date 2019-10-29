@@ -4,9 +4,9 @@
 #---------------------------------------------------------------------
 
 provider "aws" {
-  region                  = "us-west-2"
-  shared_credentials_file = "/Users/vince/.aws/credentials"
-  profile                 = "vince"
+  region                  = var.aws_region
+  shared_credentials_file = var.aws_shared_credentials_file
+  profile                 = var.aws_profile
 }
 
 #---------------------------------------------------------------------
@@ -22,12 +22,12 @@ provider "aws" {
 # for the cloud-init logs in /var/log in the VM once it boots.
 
 resource "aws_lightsail_instance" "my_instance" {
-  name              = "tfbuntu"
-  availability_zone = "us-west-2a"
-  blueprint_id      = "ubuntu_18_04"
-  bundle_id         = "nano_2_0"
-  key_pair_name     = "vds-oregon-lightsail-key"
-  user_data         = "${file("my_userdata_script.sh")}"
+  name              = var.instance_name
+  availability_zone = var.aws_availability_zone
+  blueprint_id      = var.aws_blueprint_id
+  bundle_id         = var.aws_bundle_id
+  key_pair_name     = var.aws_key_pair_name
+  user_data         = "${file(var.userdata_script)}"
 }
 
 #---------------------------------------------------------------------
