@@ -37,4 +37,10 @@ apt-get install certbot python-certbot-nginx -y
 #     open https://fqdn
 #     or use https://www.ssllabs/ssltest
 #
+# noninteractive would be:
+# sudo certbot --nginx --agree-tos -m myemail@example.com -n -d host1.mydomain,host2.mydomain
+# (assuming the hosts 'do' resolve in DNS)
+#
+# for Lightsail, make sure 443 is open in the Amazon console.  The default is 'not' open.
+#
 ########################
