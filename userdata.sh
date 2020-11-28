@@ -1,6 +1,7 @@
 #!/bin/bash
 
 echo "userdata start at `date`" >> /root/000-TERRAFORM-DATE
+echo "(see the script at /var/lib/cloud/instance/user-data.txt for manual steps)" >> /root/000-TERRAFORM-DATE
 
 # two steps, some packages are held back in the first pass
 export DEBIAN_FRONTEND=noninteractive
@@ -9,7 +10,7 @@ apt-get upgrade -y
 apt-get dist-upgrade -y
 
 # stuff we always add
-apt-get install nginx vim git -y
+apt-get install nginx vim git fail2ban iptables-persistent geoip-bin -y
 
 # certbot software
 apt-get install software-properties-common -y
@@ -42,6 +43,8 @@ apt-get install certbot python-certbot-nginx -y
 # (assuming the hosts 'do' resolve in DNS)
 #
 # for Lightsail, make sure 443 is open in the Amazon console.  The default is 'not' open.
+#
+# REBOOT TO ENABLE fail2ban AND TO ENSURE THE SYSTEM COMES UP OK
 #
 ########################
 
