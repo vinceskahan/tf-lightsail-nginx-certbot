@@ -23,7 +23,8 @@ variable "aws_key_pair_name"           { default = "vds-oregon-lightsail-key" }
 #---------------------------------------------------------------------
 # base image to use
 #---------------------------------------------------------------------
-variable "aws_blueprint_id"            { default = "ubuntu_18_04" }
+####variable "aws_blueprint_id"            { default = "ubuntu_18_04" }
+variable "aws_blueprint_id"            { default = "ubuntu_20_04" }
 
 #---------------------------------------------------------------------
 # instance size
@@ -33,7 +34,8 @@ variable "aws_bundle_id"               { default = "nano_2_0" }
 #---------------------------------------------------------------------
 # instance name to create
 #---------------------------------------------------------------------
-variable "instance_name"               { default = "tfbuntu" }
+#variable "instance_name"               { default = "tfbuntu" }
+variable "instance_name"               { default = "tfbuntu2004" }
 
 #---------------------------------------------------------------------
 # userdata script to run

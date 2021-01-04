@@ -19,6 +19,9 @@ add-apt-repository ppa:certbot/certbot -y
 apt-get update
 apt-get install certbot python-certbot-nginx -y
 
+# set the tz
+timedatectl set-timezone America/Los_Angeles
+
 ########################
 #
 # unfortunately google domains does not have a scriptable API
